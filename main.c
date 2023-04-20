@@ -6,7 +6,7 @@
 /*   By: ramoussa <ramoussa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 18:25:30 by ramoussa          #+#    #+#             */
-/*   Updated: 2023/04/19 18:26:53 by ramoussa         ###   ########.fr       */
+/*   Updated: 2023/04/19 23:17:14 by ramoussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 int	main()
 {
-	ft_printf("Hello World", 42, '2', 's', "HEEEEY");
+	ft_printf("Hello World", 421232112, '2', 's', "HEEEEY");
 }

@@ -6,27 +6,31 @@
 #    By: ramoussa <ramoussa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/17 16:26:51 by ramoussa          #+#    #+#              #
-#    Updated: 2023/04/19 18:59:40 by ramoussa         ###   ########.fr        #
+#    Updated: 2023/04/20 00:41:53 by ramoussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 
 LIBFT = libft
+CFLAGS = -Wall -Wextra -Werror
 LIBFT_LIB = $(LIBFT)/libft.a
 
 SRCS = ft_printf.c
 
 OBJS = $(SRCS:%.c=%.o)
 
-all: libft $(NAME)
+all: $(NAME)
 
 libft:
 	@$(MAKE) -C $(LIBFT)
 
-$(NAME):
-	gcc -c -Wall -Wextra -Werror $(SRCS)
+$(NAME): libft $(OBJS)
+	mv $(LIBFT_LIB) $(NAME)
 	ar rcs $(NAME) $(OBJS)
+
+$(OBJS): $(SRCS)
+	gcc -c $(CFLAGS) $(SRCS) -o $(OBJS)
 
 clean:
 	rm -f $(OBJS)
