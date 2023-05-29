@@ -6,7 +6,7 @@
 /*   By: ramoussa <ramoussa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 21:44:51 by ramoussa          #+#    #+#             */
-/*   Updated: 2023/04/28 16:47:15 by ramoussa         ###   ########.fr       */
+/*   Updated: 2023/05/29 19:08:43 by ramoussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,50 @@ int ft_print_hex(va_list params)
 	return (2 + handle_hex((long)ptr, 0));
 }
 
+unsigned int handle_unsigned_int(unsigned int n, int fd)
+{
+	int	count;
+	char	c;
+
+	if (n > 9)
+	{
+		count = handle_unsigned_int(n / 10, fd);
+		c = '0' + n % 10;
+		return (count + write(fd, &c, 1));
+	}
+	else
+	{
+		c = '0' + n;
+		return (write(fd, &c, 1));
+	}
+}
+
+int	handle_signed_int(int n, int fd)
+{
+	int	count;
+	char	c;
+	if (n == -2147483648)
+		return (write(fd, "-2147483648", 11));
+	if (n < 0)
+	{
+		n *= -1;
+		write(fd, "-", 1);
+		count = handle_signed_int(n, fd);
+		return (count + 1);
+	}
+	if (n > 9)
+	{
+		count = handle_signed_int(n / 10, fd);
+		c = '0' + n % 10;
+		return (count + write(fd, &c, 1));
+	}
+	else
+	{
+		c = '0' + n;
+		return (write(fd, &c, 1));
+	}
+}
+
 int	type_factory(va_list params, char fmt)
 {
 	if (fmt == 'c')
@@ -75,10 +119,13 @@ int	type_factory(va_list params, char fmt)
 		return (ft_print_hex(params));
 	}
 	else if (fmt == 'd')
-		ft_putnbr_fd(va_arg(params, int), 1);
+		return (handle_signed_int(va_arg(params, int), 1));
+	else if (fmt == 'i')
+		return (handle_signed_int(va_arg(params, int), 1));
 	else if (fmt == 'u')
 	{
 		// unsigned decimal
+		return (handle_unsigned_int(va_arg(params, unsigned int), 1));
 	}
 	else if (fmt == 'x')
 	{
