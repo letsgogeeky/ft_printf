@@ -6,7 +6,7 @@
 /*   By: ramoussa <ramoussa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 21:44:51 by ramoussa          #+#    #+#             */
-/*   Updated: 2023/05/29 19:08:43 by ramoussa         ###   ########.fr       */
+/*   Updated: 2023/06/02 21:57:13 by ramoussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,50 @@ int	handle_hex(unsigned long ptr, int len)
 	if (c < 10)
 		ft_putchar_fd(c + '0', 1);
 	else
+	{
 		ft_putchar_fd(c + 'a' - 10, 1);
+	}
 	return (len);
+}
+
+int	handle_long_hex(long value, int upper, int fd)
+{
+	char	*upperhex = "0123456789ABCDEF";
+	char	*lowerhex = "0123456789abcdef";
+	char	*model;
+	int		count;
+
+	if (upper)
+		model = (char *)upperhex;
+	else
+		model = (char *)lowerhex;
+	if (value > 15)
+	{
+		count = handle_long_hex(value / 16, upper, fd);
+		return (count + write(fd, &model[value % 16], 1));
+	}
+	else
+		return (write(fd, &model[value], 1));
+}
+
+int	handle_int_hex(unsigned int value, int upper, int fd)
+{
+	char	*upperhex = "0123456789ABCDEF";
+	char	*lowerhex = "0123456789abcdef";
+	char	*model;
+	int		count;
+
+	if (upper)
+		model = (char *)upperhex;
+	else
+		model = (char *)lowerhex;
+	if (value > 15)
+	{
+		count = handle_int_hex(value / 16, upper, fd);
+		return (count + write(fd, &model[value % 16], 1));
+	}
+	else
+		return (write(fd, &model[value], 1));
 }
 
 int ft_print_str(va_list params)
@@ -129,12 +171,13 @@ int	type_factory(va_list params, char fmt)
 	}
 	else if (fmt == 'x')
 	{
+		return (handle_int_hex(va_arg(params, unsigned int), 0, 1));
 		// print a number in hexadecimal format (lowercase)
 	}
 	else if (fmt == 'X')
 	{
 		// print a number in hexadecimal format (uppercase)
-		
+		return (handle_int_hex(va_arg(params, unsigned int), 1, 1));
 	}
 	else if (fmt == '%')
 	{
