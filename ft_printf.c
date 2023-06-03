@@ -6,7 +6,7 @@
 /*   By: ramoussa <ramoussa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 21:44:51 by ramoussa          #+#    #+#             */
-/*   Updated: 2023/06/03 14:17:20 by ramoussa         ###   ########.fr       */
+/*   Updated: 2023/06/03 21:56:07 by ramoussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,32 +32,44 @@ int	type_factory(va_list *params, char fmt)
 		return (handle_int_hex(va_arg(*params, unsigned int), 1, 1));
 	else if (fmt == '%')
 		return (write(1, "%", 1));
-	else
-		return (0);
+	return (0);
 }
 
-int	ft_printf(const char *str, ...)
+int	process_params(const char *str, va_list *params)
 {
-	va_list	params;
 	int	i;
 	int len;
-		
-	if (!str)
-		return (-1);
-	va_start(params, str);
+	int	written;
+
 	i = 0;
 	len = 0;
 	while(str && str[i])
 	{
 		if (str[i] == '%' && str[i + 1])
 		{
-			len += type_factory(&params, str[i + 1]);
+			written = type_factory(params, str[i + 1]);
+			len += written;
 			i++;
 		}
 		else
-			len += write(1, &str[i], 1);
+		{
+			written = write(1, &str[i], 1);
+			len += written;
+		}
+		if (written < 0)
+			return (-1);
 		i++;
 	}
+	return (len);
+}
+
+int	ft_printf(const char *str, ...)
+{
+	va_list	params;
+	int	len;
+
+	va_start(params, str);
+	len = process_params(str, &params);	
 	va_end(params);
 	return (len);
 }
