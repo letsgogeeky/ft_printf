@@ -6,7 +6,7 @@
 #    By: ramoussa <ramoussa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/17 16:26:51 by ramoussa          #+#    #+#              #
-#    Updated: 2023/04/20 00:41:53 by ramoussa         ###   ########.fr        #
+#    Updated: 2023/06/03 14:11:12 by ramoussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ LIBFT = libft
 CFLAGS = -Wall -Wextra -Werror
 LIBFT_LIB = $(LIBFT)/libft.a
 
-SRCS = ft_printf.c
+SRCS = ft_printf.c numeric_types.c string_types.c hex_types.c
 
 OBJS = $(SRCS:%.c=%.o)
 
@@ -28,9 +28,6 @@ libft:
 $(NAME): libft $(OBJS)
 	mv $(LIBFT_LIB) $(NAME)
 	ar rcs $(NAME) $(OBJS)
-
-$(OBJS): $(SRCS)
-	gcc -c $(CFLAGS) $(SRCS) -o $(OBJS)
 
 clean:
 	rm -f $(OBJS)
