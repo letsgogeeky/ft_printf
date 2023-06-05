@@ -6,16 +6,16 @@
 /*   By: ramoussa <ramoussa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 21:44:02 by ramoussa          #+#    #+#             */
-/*   Updated: 2023/06/03 14:14:19 by ramoussa         ###   ########.fr       */
+/*   Updated: 2023/06/05 21:01:26 by ramoussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
-#include <stdarg.h>
-#include <unistd.h>
-#include <stdio.h>
-#include "libft/libft.h"
+
+# include <stdarg.h>
+# include <unistd.h>
+# include "libft/libft.h"
 
 int	ft_printf(const char *str, ...);
 int	handle_char(char c, int fd);

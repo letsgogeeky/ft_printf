@@ -6,7 +6,7 @@
 /*   By: ramoussa <ramoussa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 13:11:57 by ramoussa          #+#    #+#             */
-/*   Updated: 2023/06/03 22:11:48 by ramoussa         ###   ########.fr       */
+/*   Updated: 2023/06/05 20:59:07 by ramoussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 int	handle_long_hex(unsigned long value, int upper, int fd)
 {
-	char	*upperhex = "0123456789ABCDEF";
-	char	*lowerhex = "0123456789abcdef";
+	char	*upperhex;
+	char	*lowerhex;
 	char	*model;
 	int		count;
 	int		written;
 
+	upperhex = "0123456789ABCDEF";
+	lowerhex = "0123456789abcdef";
 	if (upper)
 		model = (char *)upperhex;
 	else
@@ -40,12 +42,14 @@ int	handle_long_hex(unsigned long value, int upper, int fd)
 
 int	handle_int_hex(unsigned int value, int upper, int fd)
 {
-	char	*upperhex = "0123456789ABCDEF";
-	char	*lowerhex = "0123456789abcdef";
+	char	*upperhex;
+	char	*lowerhex;
 	char	*model;
 	int		count;
 	int		written;
 
+	upperhex = "0123456789ABCDEF";
+	lowerhex = "0123456789abcdef";
 	if (upper)
 		model = (char *)upperhex;
 	else
@@ -64,7 +68,7 @@ int	handle_int_hex(unsigned int value, int upper, int fd)
 		return (write(fd, &model[value], 1));
 }
 
-int ft_print_hex(void *ptr)
+int	ft_print_hex(void *ptr)
 {
 	int	written;
 

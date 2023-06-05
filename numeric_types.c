@@ -6,17 +6,17 @@
 /*   By: ramoussa <ramoussa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 13:12:53 by ramoussa          #+#    #+#             */
-/*   Updated: 2023/06/03 22:09:23 by ramoussa         ###   ########.fr       */
+/*   Updated: 2023/06/05 21:02:24 by ramoussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int handle_unsigned_int(unsigned int n, int fd)
+int	handle_unsigned_int(unsigned int n, int fd)
 {
-	int	count;
+	int		count;
 	char	c;
-	int	written;
+	int		written;
 
 	if (n > 9)
 	{
@@ -38,10 +38,10 @@ int handle_unsigned_int(unsigned int n, int fd)
 
 int	handle_signed_int(int n, int fd)
 {
-	int	count;
-	int	written;
+	int		count;
+	int		written;
 	char	c;
-	
+
 	if (n == -2147483648)
 		return (write(fd, "-2147483648", 11));
 	if (n < 0)
@@ -51,8 +51,6 @@ int	handle_signed_int(int n, int fd)
 		if (written == -1)
 			return (-1);
 		count = handle_signed_int(n, fd);
-		if (count < 0)
-			return (-1);
 		return (count + 1);
 	}
 	if (n > 9)
@@ -61,14 +59,8 @@ int	handle_signed_int(int n, int fd)
 		if (count == -1)
 			return (-1);
 		c = '0' + n % 10;
-		written = write(fd, &c, 1);
-		if (written == -1)
-			return (-1);
-		return (count + written);
+		return (count + write(fd, &c, 1));
 	}
-	else
-	{
-		c = '0' + n;
-		return (write(fd, &c, 1));
-	}
+	c = '0' + n;
+	return (write(fd, &c, 1));
 }
