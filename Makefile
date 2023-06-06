@@ -6,7 +6,7 @@
 #    By: ramoussa <ramoussa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/17 16:26:51 by ramoussa          #+#    #+#              #
-#    Updated: 2023/06/03 14:11:12 by ramoussa         ###   ########.fr        #
+#    Updated: 2023/06/06 19:55:22 by ramoussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,10 +22,8 @@ OBJS = $(SRCS:%.c=%.o)
 
 all: $(NAME)
 
-libft:
-	@$(MAKE) -C $(LIBFT)
-
-$(NAME): libft $(OBJS)
+$(NAME): $(OBJS)
+	cd libft && make
 	mv $(LIBFT_LIB) $(NAME)
 	ar rcs $(NAME) $(OBJS)
 
