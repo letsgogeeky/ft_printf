@@ -6,7 +6,7 @@
 /*   By: ramoussa <ramoussa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 21:44:51 by ramoussa          #+#    #+#             */
-/*   Updated: 2023/06/05 20:55:56 by ramoussa         ###   ########.fr       */
+/*   Updated: 2023/06/10 01:18:54 by ramoussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	type_factory(va_list *params, char fmt)
 {
 	if (fmt == 'c')
-		return (handle_char((char)va_arg(*params, int), 1));
+		return (handle_char((unsigned char)va_arg(*params, int), 1));
 	else if (fmt == 's')
 		return (handle_string(va_arg(*params, char *)));
 	else if (fmt == 'p')
@@ -41,9 +41,9 @@ int	process_params(const char *str, va_list *params)
 	int	len;
 	int	written;
 
-	i = 0;
+	i = -1;
 	len = 0;
-	while (str && str[i])
+	while (str && str[++i])
 	{
 		if (str[i] == '%' && str[i + 1])
 		{
@@ -53,12 +53,13 @@ int	process_params(const char *str, va_list *params)
 		}
 		else
 		{
+			if (str[i] == '%' && ++i)
+				continue ;
 			written = write(1, &str[i], 1);
 			len += written;
 		}
 		if (written < 0)
 			return (-1);
-		i++;
 	}
 	return (len);
 }
