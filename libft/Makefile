@@ -6,7 +6,7 @@
 #    By: ramoussa <ramoussa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/20 18:55:03 by ramoussa          #+#    #+#              #
-#    Updated: 2023/04/20 00:38:14 by ramoussa         ###   ########.fr        #
+#    Updated: 2023/03/28 20:47:17 by ramoussa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ BONUS_SOURCE = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c \
 				ft_lstclear.c ft_lstiter.c ft_lstmap.c
 
 OBJ = $(SOURCE:%.c=%.o)
-BONUS_OBJ = $(BONUS_SOURCE:%c.=%.o)
+BONUS_OBJ = $(BONUS_SOURCE:%.c=%.o)
 
 all: $(NAME)
 

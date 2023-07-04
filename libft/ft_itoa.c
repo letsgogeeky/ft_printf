@@ -42,13 +42,11 @@ char	*ft_itoa(int n)
 {
 	char	*str;
 	int		digit_count;
-	int		idx;
 
 	digit_count = count_digits(n);
 	str = (char *)malloc(sizeof(char) * digit_count + 1);
 	if (!str)
 		return (0);
-	idx = 0;
 	str[digit_count] = '\0';
 	digit_count--;
 	if (n == 0)

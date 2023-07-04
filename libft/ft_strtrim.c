@@ -34,7 +34,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 		if (trimmed)
 		{
 			ft_strlcpy(trimmed, &s1[start], end - start + 1);
-		}	
+		}
 	}
 	return (trimmed);
 }

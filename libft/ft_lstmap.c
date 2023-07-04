@@ -13,6 +13,21 @@
 #include <stdlib.h>
 #include "libft.h"
 
+t_list	*ft_lstnew_safe(void *content)
+{
+	t_list	*node;
+
+	node = (t_list *) malloc(sizeof(t_list));
+	if (!node)
+	{
+		free(content);
+		return (NULL);
+	}
+	node->content = content;
+	node->next = NULL;
+	return (node);
+}
+
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
 	t_list	*result;
@@ -21,7 +36,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 
 	if (!lst || !f)
 		return (NULL);
-	node = ft_lstnew(f(lst->content));
+	node = ft_lstnew_safe((*f)(lst->content));
 	if (!node)
 		return (NULL);
 	lst = lst->next;
@@ -29,7 +44,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	current = result;
 	while (lst)
 	{
-		node = ft_lstnew(f(lst->content));
+		node = ft_lstnew_safe((*f)(lst->content));
 		if (!node)
 		{
 			ft_lstclear(&result, del);
